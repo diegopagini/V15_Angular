@@ -17,6 +17,7 @@ export class AppComponent {}
 ```
 
 ```typescript
+// In the main.ts
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { AppComponent } from "./app/app.component";
