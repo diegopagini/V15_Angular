@@ -1,1 +1,7 @@
-<p>untyped-form works!</p>
+<form [formGroup]="regularForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="name" />
+
+  <input type="number" formControlName="age" />
+
+  <app-button [type]="'submit'">Submit</app-button>
+</form>
