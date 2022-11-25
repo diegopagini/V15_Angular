@@ -305,3 +305,7 @@ export class ButtonComponent {
   <ng-content></ng-content>
 </button>
 ```
+
+# Deprecations
+
+[Deprecations](https://angular.io/guide/deprecations)
