@@ -1,13 +1,14 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './about-page.component.html',
-  styleUrls: ['./about-page.component.scss']
+  styleUrls: ['./about-page.component.scss'],
 })
 export class AboutPageComponent {
-
+  url =
+    'https://as01.epimg.net/meristation/imagenes/2022/04/26/mexico/1650937584_681667_1650937697_noticia_normal.jpg';
 }
