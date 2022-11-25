@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-button',
+  imports: [MatButtonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
