@@ -15,6 +15,13 @@ export const routes: Route[] = [
       ),
   },
   {
+    path: 'forms',
+    loadComponent: () =>
+      import('./pages/forms-page/forms-page.component').then(
+        (c) => c.FormsPageComponent
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

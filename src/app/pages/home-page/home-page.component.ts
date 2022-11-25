@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsComponent } from 'src/app/components/forms/forms.component';
+import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
-  selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'app-home-page',
+  imports: [CommonModule, FormsComponent],
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  providers: [PokemonService],
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
+  constructor(private pokemonService: PokemonService) {}
 
+  ngOnInit(): void {
+    console.log(this.pokemonService.getPokemons());
+  }
 }

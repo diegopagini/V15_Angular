@@ -1,0 +1,7 @@
+<form [formGroup]="partyForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="house" />
+
+  <input type="text" formControlName="street" />
+
+  <app-button type="submit">Submit</app-button>
+</form>
