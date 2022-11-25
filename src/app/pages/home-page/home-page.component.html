@@ -1,5 +1,5 @@
 <h1>Pokemons</h1>
 <hr />
-<ol *ngIf="pokemons">
+<ol *ngIf="pokemons$ | async as pokemons">
   <li *ngFor="let pokemon of pokemons">{{ pokemon }}</li>
 </ol>

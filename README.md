@@ -206,3 +206,50 @@ export class UntypedFormComponent implements OnInit {
   <app-button [type]="'submit'">Submit</app-button>
 </form>
 ```
+
+# Servides (not) provideIn: "root"
+
+```typescript
+import { Injectable } from "@angular/core";
+import { Observable, of } from "rxjs";
+
+@Injectable()
+export class PokemonService {
+  getPokemons(): Observable<string[]> {
+    return of(["Pikachu", "Charizard", "Mew"]);
+  }
+}
+```
+
+```typescript
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { PokemonService } from "src/app/services/pokemon.service";
+
+@Component({
+  standalone: true,
+  selector: "app-home-page",
+  imports: [CommonModule],
+  templateUrl: "./home-page.component.html",
+  styleUrls: ["./home-page.component.scss"],
+  providers: [PokemonService],
+})
+export class HomePageComponent implements OnInit {
+  pokemons$: Observable<string[]>;
+
+  constructor(private pokemonService: PokemonService) {}
+
+  ngOnInit(): void {
+    this.pokemons$ = this.pokemonService.getPokemons();
+  }
+}
+```
+
+```html
+<h1>Pokemons</h1>
+<hr />
+<ol *ngIf="pokemons$ | async as pokemons">
+  <li *ngFor="let pokemon of pokemons">{{ pokemon }}</li>
+</ol>
+```
