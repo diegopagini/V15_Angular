@@ -87,6 +87,7 @@ import { Component, OnInit } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
@@ -104,6 +105,10 @@ interface PartyForm {
     | string
     | ((control: AbstractControl<any, any>) => ValidationErrors | null)[]
   )[];
+  guests: FormGroup<{
+    total: FormControl<number | null>;
+    adults: FormControl<boolean | null>;
+  }>;
 }
 
 @Component({
@@ -125,6 +130,10 @@ export class FormsComponent implements OnInit {
         "Main Street 123",
         [Validators.required, Validators.minLength(12)],
       ],
+      guests: this._formBuilder.group({
+        total: [20, [Validators.required, Validators.min(1)]],
+        adults: [true],
+      }),
     });
   }
 
@@ -139,6 +148,12 @@ export class FormsComponent implements OnInit {
   <input type="text" formControlName="house" />
 
   <input type="text" formControlName="street" />
+
+  <div formGroupName="guests">
+    <input type="number" formControlName="total" />
+
+    <input type="checkbox" formControlName="adults" />
+  </div>
 
   <app-button type="submit">Submit</app-button>
 </form>
