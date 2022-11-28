@@ -1,8 +1,12 @@
-# V15
+# V14 & V15
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
 
-# App without modules.
+---
+
+## App without modules.
+
+#### app.component.ts
 
 ```typescript
 import { Component } from "@angular/core";
@@ -16,8 +20,9 @@ import { Component } from "@angular/core";
 export class AppComponent {}
 ```
 
+#### main.ts
+
 ```typescript
-// In the main.ts
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { AppComponent } from "./app/app.component";
@@ -25,7 +30,11 @@ import { AppComponent } from "./app/app.component";
 bootstrapApplication(AppComponent).catch((err) => console.error(err));
 ```
 
-# Routes without modules.
+---
+
+## Routes without modules.
+
+#### app.component.ts
 
 ```typescript
 import { Component } from "@angular/core";
@@ -41,6 +50,8 @@ import { RouterModule } from "@angular/router";
 export class AppComponent {}
 ```
 
+#### app.component.html
+
 ```html
 <header>
   <nav>
@@ -53,6 +64,8 @@ export class AppComponent {}
 
 <router-outlet></router-outlet>
 ```
+
+#### app.routing.ts
 
 ```typescript
 import { Route } from "@angular/router";
@@ -79,7 +92,11 @@ export const routes: Route[] = [
 ];
 ```
 
-# Typed Forms
+---
+
+## Typed Forms
+
+#### forms.component.ts
 
 ```typescript
 import { CommonModule } from "@angular/common";
@@ -143,6 +160,8 @@ export class FormsComponent implements OnInit {
 }
 ```
 
+#### forms.component.html
+
 ```html
 <form [formGroup]="partyForm" (ngSubmit)="onSubmit()">
   <input type="text" formControlName="house" />
@@ -159,7 +178,11 @@ export class FormsComponent implements OnInit {
 </form>
 ```
 
-# Untyped Forms
+---
+
+## Untyped Forms
+
+#### untyped-forms.component.ts
 
 ```typescript
 import { CommonModule } from "@angular/common";
@@ -197,6 +220,8 @@ export class UntypedFormComponent implements OnInit {
 }
 ```
 
+#### untyped-forms.component.html
+
 ```html
 <form [formGroup]="regularForm" (ngSubmit)="onSubmit()">
   <input type="text" formControlName="name" />
@@ -207,7 +232,11 @@ export class UntypedFormComponent implements OnInit {
 </form>
 ```
 
-# Servides (not) provideIn: "root"
+---
+
+## Servides (not) provideIn: "root"
+
+#### pokemon.service.ts
 
 ```typescript
 import { Injectable } from "@angular/core";
@@ -220,6 +249,8 @@ export class PokemonService {
   }
 }
 ```
+
+#### home-page.component.ts
 
 ```typescript
 import { CommonModule } from "@angular/common";
@@ -246,6 +277,8 @@ export class HomePageComponent implements OnInit {
 }
 ```
 
+#### home-page.component.html
+
 ```html
 <h1>Pokemons</h1>
 <hr />
@@ -254,7 +287,11 @@ export class HomePageComponent implements OnInit {
 </ol>
 ```
 
-# Optimized Images Directive
+---
+
+## Optimized Images Directive
+
+#### about-page.component.ts
 
 ```typescript
 import { CommonModule, NgOptimizedImage } from "@angular/common";
@@ -273,11 +310,17 @@ export class AboutPageComponent {
 }
 ```
 
+#### about-page.component.html
+
 ```html
 <img [ngSrc]="url" fill />
 ```
 
-# Angular Material
+---
+
+## Angular Material
+
+#### button.component.ts
 
 ```typescript
 import { Component, EventEmitter, Input, Output } from "@angular/core";
@@ -300,12 +343,57 @@ export class ButtonComponent {
 }
 ```
 
+#### button.component.html
+
 ```html
 <button mat-raised-button (click)="onButtonClick()" [type]="type">
   <ng-content></ng-content>
 </button>
 ```
 
-# Deprecations
+---
+
+## Guards
+
+#### app.routing.ts
+
+```typescript
+import { inject } from "@angular/core";
+import { Route } from "@angular/router";
+
+import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { AuthService } from "./services/auth/auth.service";
+
+export const routes: Route[] = [
+  {
+    path: "home",
+    component: HomePageComponent,
+  },
+  {
+    path: "about",
+    loadComponent: () =>
+      import("./pages/about-page/about-page.component").then(
+        (c) => c.AboutPageComponent
+      ),
+    canActivate: [() => inject(AuthService).isAuth()],
+  },
+  {
+    path: "forms",
+    loadComponent: () =>
+      import("./pages/forms-page/forms-page.component").then(
+        (c) => c.FormsPageComponent
+      ),
+  },
+  {
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full",
+  },
+];
+```
+
+---
+
+## Deprecations
 
 [Deprecations](https://angular.io/guide/deprecations)

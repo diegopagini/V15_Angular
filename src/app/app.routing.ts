@@ -1,6 +1,8 @@
+import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AuthService } from './services/auth/auth.service';
 
 export const routes: Route[] = [
   {
@@ -13,6 +15,7 @@ export const routes: Route[] = [
       import('./pages/about-page/about-page.component').then(
         (c) => c.AboutPageComponent
       ),
+    canActivate: [() => inject(AuthService).isAuth()],
   },
   {
     path: 'forms',
