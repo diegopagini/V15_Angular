@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 
+import { ADMIN_ROUTES } from './pages/admin-page/admin.routing';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AuthService } from './services/auth/auth.service';
 
@@ -39,6 +40,14 @@ export const routes: Route[] = [
       import('./pages/forms-page/forms-page.component').then(
         (c) => c.FormsPageComponent
       ),
+  },
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./pages/admin-page/admin-page.component').then(
+        (c) => c.AdminPageComponent
+      ),
+    children: [...ADMIN_ROUTES],
   },
   {
     path: '',

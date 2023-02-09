@@ -413,6 +413,113 @@ export const routes: Route[] = [
 
 ---
 
+## Nested Routes
+
+#### app.routing.ts
+
+```typescript
+import { inject } from "@angular/core";
+import { Route } from "@angular/router";
+
+import { ADMIN_ROUTES } from "./pages/admin-page/admin.routing";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { AuthService } from "./services/auth/auth.service";
+
+export const routes: Route[] = [
+  {
+    path: "home",
+    component: HomePageComponent,
+  },
+  {
+    path: "about",
+    loadComponent: () =>
+      import("./pages/about-page/about-page.component").then(
+        (c) => c.AboutPageComponent
+      ),
+    canActivate: [() => inject(AuthService).isAuth()],
+  },
+  {
+    path: "forms",
+    loadComponent: () =>
+      import("./pages/forms-page/forms-page.component").then(
+        (c) => c.FormsPageComponent
+      ),
+  },
+  {
+    path: "admin",
+    loadComponent: () =>
+      import("./pages/admin-page/admin-page.component").then(
+        (c) => c.AdminPageComponent
+      ),
+    children: [...ADMIN_ROUTES],
+  },
+  {
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full",
+  },
+];
+```
+
+#### admin.routing.ts
+
+```typescript
+import { Route } from "@angular/router";
+
+export const ADMIN_ROUTES: Route[] = [
+  {
+    path: "dashboard",
+    loadComponent: () =>
+      import("./components/dashboard/dashboard.component").then(
+        (c) => c.DashboardComponent
+      ),
+  },
+  {
+    path: "panel",
+    loadComponent: () =>
+      import("./components/panel/panel.component").then(
+        (c) => c.PanelComponent
+      ),
+  },
+  {
+    path: "",
+    redirectTo: "dashboard",
+    pathMatch: "full",
+  },
+];
+```
+
+#### admin-page.component.html
+
+```html
+<ul>
+  <li [routerLink]="['/admin/dashboard']">Admin Dashboard</li>
+  <li [routerLink]="['/admin/panel']">Admin Panel</li>
+</ul>
+
+<hr />
+<router-outlet></router-outlet>
+```
+
+#### admin-page.component.ts
+
+```typescript
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { RouterModule } from "@angular/router";
+
+@Component({
+  selector: "app-admin-page",
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: "./admin-page.component.html",
+  styleUrls: ["./admin-page.component.scss"],
+})
+export class AdminPageComponent {}
+```
+
+---
+
 ## Deprecations
 
 [Deprecations](https://angular.io/guide/deprecations)
