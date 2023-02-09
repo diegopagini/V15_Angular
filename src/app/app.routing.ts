@@ -8,6 +8,22 @@ export const routes: Route[] = [
   {
     path: 'home',
     component: HomePageComponent,
+    children: [
+      {
+        path: 'data',
+        loadComponent: () =>
+          import('./pages/home-page/components/data/data.component').then(
+            (c) => c.DataComponent
+          ),
+      },
+      {
+        path: 'info',
+        loadComponent: () =>
+          import('./pages/home-page/components/info/info.component').then(
+            (c) => c.InfoComponent
+          ),
+      },
+    ],
   },
   {
     path: 'about',
