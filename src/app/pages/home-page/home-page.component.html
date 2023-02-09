@@ -3,3 +3,14 @@
 <ol *ngIf="pokemons$ | async as pokemons">
   <li *ngFor="let pokemon of pokemons">{{ pokemon }}</li>
 </ol>
+
+<hr />
+
+<nav>
+  <ul>
+    <li routerLink="data">Data</li>
+    <li routerLink="info">Info</li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
